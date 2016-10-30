@@ -87,8 +87,12 @@ class Customer extends ResourceAbstract
 
     public function getTags(): array
     {
-        $tags = explode(',', $this->getRawData()->tags);
-        $tags = array_map(function ($tag) { return trim($tag); }, $tags);
+        $tags = [];
+
+        if (trim($this->getRawData()->tags) != '') {
+            $tags = explode(',', $this->getRawData()->tags);
+            $tags = array_map(function ($tag) { return trim($tag); }, $tags);
+        }
 
         return $tags;
     }
