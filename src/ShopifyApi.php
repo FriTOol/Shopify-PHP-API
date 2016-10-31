@@ -10,6 +10,7 @@ namespace ShopifyApi;
 
 use ShopifyApi\Core\Proxy;
 use ShopifyApi\Resource\Collection\CustomerCollection;
+use ShopifyApi\Resource\Customer;
 
 class ShopifyApi
 {
@@ -39,5 +40,15 @@ class ShopifyApi
     public function getCustomers(array $params = [])
     {
         return new CustomerCollection($this->getProxy()->getCustomers($params)->customers, $this->getProxy());
+    }
+
+    public function getCustomer(int $id): Customer
+    {
+        return new Customer($this->getProxy()->getCustomer($id)->customer, $this->getProxy());
+    }
+
+    public function updateCustomer(int $id, array $data)
+    {
+        return $this->getProxy()->updateCustomer($id, $data);
     }
 }

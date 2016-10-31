@@ -17,6 +17,8 @@ abstract class ResourceAbstract
 
     protected $_isLoaded = false;
 
+    protected $_updatedData = [];
+
     public function __construct($rawData, Proxy $proxy, bool $isLoaded = false)
     {
         $this->setRawData($rawData);
@@ -24,8 +26,14 @@ abstract class ResourceAbstract
         $this->_isLoaded = $isLoaded;
     }
 
-    public function save()
+    protected function _getData(string $name)
     {
+        if (isset($this->_updatedData[$name])) {
+            return $this->_updatedData[$name];
+        } elseif (isset($this->getRawData()->$name)) {
+            return $this->getRawData()->$name;
+        }
 
+        return null;
     }
 }

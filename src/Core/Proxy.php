@@ -37,17 +37,44 @@ class Proxy
 
     public function getCustomers(array $params = [])
     {
-        return $this->_callApi('customers.json', $params);
+        return $this->_getApi('customers.json', $params);
     }
 
-    private function _callApi(string $method, array $params = [])
+    public function getCustomer(int $id)
     {
-        $options = [
-            'auth' => [$this->_apiKey, $this->_apiSecret],
-            'query' => $params
-        ];
+        return $this->_getApi(sprintf('customers/%d.json', $id));
+    }
+
+    public function updateCustomer($id, $data)
+    {
+        $this->_putApi(sprintf('customers/%d.json', $id), ['customer' => $data]);
+    }
+
+    public function createCustomer($data)
+    {
+        return $this->_portApi('customers.json', ['customer' => $data]);
+    }
+
+    private function _getApi(string $url, array $query = [])
+    {
+        return $this->_callApi('get', $url, ['query' => $query]);
+    }
+
+    private function _putApi(string $url, array $formParams = [])
+    {
+        return $this->_callApi('put', $url, ['form_params' => $formParams]);
+    }
+
+    private function _portApi(string $url, array $formParams = [])
+    {
+        return $this->_callApi('post', $url, ['form_params' => $formParams]);
+    }
+
+    private function _callApi(string $method, string $url, array $options = [])
+    {
+        $options['auth'] = [$this->_apiKey, $this->_apiSecret];
 //        try {
-            $response = $this->_httpClient->get($method, $options);
+            $response = $this->_httpClient->request($method, $url, $options);
 //        var_dump($response->getBody()->getContents());
 //        } catch (ClientException $exception) {
 //            $data = json_decode($exception->getResponse()->getBody()->getContents());
