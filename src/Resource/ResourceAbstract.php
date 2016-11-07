@@ -36,4 +36,14 @@ abstract class ResourceAbstract
 
         return null;
     }
+
+    public function getUpdatedData()
+    {
+        return $this->_updatedData;
+    }
+
+    public function resetUpdatedData()
+    {
+        $this->_updatedData = [];
+    }
 }

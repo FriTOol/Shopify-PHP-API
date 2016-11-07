@@ -8,8 +8,21 @@
 
 namespace ShopifyApi\Resource;
 
+use ShopifyApi\Resource\Collection\Customer\AddressCollection;
+use ShopifyApi\Resource\Customer\Address;
+
 class Customer extends ResourceAbstract
 {
+    /**
+     * @var AddressCollection
+     */
+    private $_addresses;
+
+    /**
+     * @var Address
+     */
+    private $_defaultAddress;
+
     public function getId(): int
     {
         return intval($this->getRawData()->id);
@@ -174,13 +187,82 @@ class Customer extends ResourceAbstract
         return $this;
     }
 
+    public function getAddresses(): AddressCollection
+    {
+        if (is_null($this->_addresses)) {
+            $data = [];
+            if (isset($this->getRawData()->addresses)
+                && count($this->getRawData()->addresses) > 0
+            ) {
+                $data = $this->getRawData()->addresses;
+            }
+
+            $this->_addresses = new AddressCollection($data, $this->getProxy());
+            $this->_addresses->setCustomer($this);
+        }
+        return $this->_addresses;
+    }
+
+    public function getDefaultAddress(): Address
+    {
+        if (is_null($this->_defaultAddress)) {
+            $this->_defaultAddress = new Address(
+                $this->getRawData()->default_address,
+                $this->getProxy()
+            );
+        }
+
+        return $this->_defaultAddress;
+    }
+
+    public function addAddress(Address $address): Customer
+    {
+        if ($address->isDefault()) {
+            $this->setDefaultAddress($address);
+        }
+
+        $address->setCustomer($this);
+        $this->getAddresses()[] = $address;
+
+        return $this;
+    }
+
+    public function setDefaultAddress(Address $address): Customer
+    {
+        $address->setCustomer($this);
+        $address->setDefault();
+
+        return $this;
+    }
+
     public function save()
     {
         if ($this->getRawData() && $this->getId()) {
-            $this->getProxy()->updateCustomer($this->getId(), $this->_updatedData);
+            /** @var Address $address */
+            foreach ($this->getAddresses() as $address) {
+                $address->save();
+            }
+
+            $this->getDefaultAddress()->save();
+
+            if (count($this->_updatedData) > 0) {
+                $this->getProxy()->updateCustomer(
+                    $this->getId(),
+                    $this->_updatedData
+                );
+            }
+
         } else {
-            $data = $this->getProxy()->createCustomer($this->_updatedData);
+            $addressData = $this->getAddresses()->getUpdatedData();
+            $data = $this->_updatedData;
+            $data['addresses'] = $addressData;
+
+            $data = $this->getProxy()->createCustomer($data);
             $this->setRawData($data->customer);
         }
+
+        $this->resetUpdatedData();
+
+        return true;
     }
 }

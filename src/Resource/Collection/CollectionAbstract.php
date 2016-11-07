@@ -7,6 +7,7 @@
  */
 namespace ShopifyApi\Resource\Collection;
 use ShopifyApi\ProxyTrait;
+use ShopifyApi\Resource\ResourceAbstract;
 use ShopifyApi\Resource\ResourceRawDataTrait;
 
 abstract class CollectionAbstract implements \IteratorAggregate, \Countable, \ArrayAccess
@@ -49,12 +50,26 @@ abstract class CollectionAbstract implements \IteratorAggregate, \Countable, \Ar
 
     public function offsetSet($offset, $value)
     {
-        trigger_error("You can't set collection data");
+        if (is_null($offset)) {
+            $this->_collection[] = $value;
+        }
     }
 
     public function offsetUnset($offset)
     {
         unset($this->_collection[$offset]);
+    }
+
+    public function getUpdatedData()
+    {
+        $data = array_map(
+            function(ResourceAbstract $resource) {
+                return $resource->getUpdatedData();
+            },
+            $this->_collection
+        );
+
+        return $data;
     }
 
 }

@@ -52,7 +52,32 @@ class Proxy
 
     public function createCustomer($data)
     {
-        return $this->_portApi('customers.json', ['customer' => $data]);
+        return $this->_postApi('customers.json', ['customer' => $data]);
+    }
+
+    public function customerSetDefaultAddress(int $customerId, int $addressId)
+    {
+        return $this->_putApi(sprintf(
+            'customers/%d/addresses/%d/default.json',
+            $customerId,
+            $addressId
+        ));
+    }
+
+    public function createCustomerAddress(int $customerId, $data)
+    {
+        return $this->_postApi(
+            sprintf('customers/%d/addresses.json', $customerId),
+            ['address' => $data]
+        );
+    }
+
+    public function updateCustomerAddress(int $customerId, int $addressId, $data)
+    {
+        return $this->_postApi(
+            sprintf('customers/dD/addresses/%d.json', $customerId, $addressId),
+            ['address' => $data]
+        );
     }
 
     private function _getApi(string $url, array $query = [])
@@ -65,7 +90,7 @@ class Proxy
         return $this->_callApi('put', $url, ['form_params' => $formParams]);
     }
 
-    private function _portApi(string $url, array $formParams = [])
+    private function _postApi(string $url, array $formParams = [])
     {
         return $this->_callApi('post', $url, ['form_params' => $formParams]);
     }
