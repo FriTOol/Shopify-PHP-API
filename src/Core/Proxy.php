@@ -45,9 +45,14 @@ class Proxy
         return $this->_getApi(sprintf('customers/%d.json', $id));
     }
 
+    public function findCustomers(array $params = [])
+    {
+        return $this->_getApi('customers/search.json', $params);
+    }
+
     public function updateCustomer($id, $data)
     {
-        $this->_putApi(sprintf('customers/%d.json', $id), ['customer' => $data]);
+        return $this->_putApi(sprintf('customers/%d.json', $id), ['customer' => $data]);
     }
 
     public function createCustomer($data)

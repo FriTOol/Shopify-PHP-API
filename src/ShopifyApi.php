@@ -51,4 +51,13 @@ class ShopifyApi
     {
         return $this->getProxy()->updateCustomer($id, $data);
     }
+
+    public function findCustomersByEmail(string $email)
+    {
+        $params = [
+            'query' => 'email:' . $email
+        ];
+
+        return new CustomerCollection($this->getProxy()->findCustomers($params)->customers, $this->getProxy());
+    }
 }
