@@ -238,6 +238,7 @@ class Customer extends ResourceAbstract
     {
         $address->setCustomer($this);
         $address->setDefault();
+        $this->_defaultAddress = $address;
 
         return $this;
     }
@@ -249,8 +250,6 @@ class Customer extends ResourceAbstract
             foreach ($this->getAddresses() as $address) {
                 $address->save();
             }
-
-            $this->getDefaultAddress()->save();
 
             if (count($this->_updatedData) > 0) {
                 $this->getProxy()->updateCustomer(
@@ -268,6 +267,7 @@ class Customer extends ResourceAbstract
             $this->setRawData($data->customer);
         }
 
+        $this->getDefaultAddress()->save();
         $this->resetUpdatedData();
 
         return true;
