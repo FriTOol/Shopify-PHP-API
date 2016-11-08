@@ -123,6 +123,13 @@ class Customer extends ResourceAbstract
         return strval($this->_getData('note'));
     }
 
+    public function setNote(string $note): Customer
+    {
+        $this->_updatedData['note'] = $note;
+
+        return $this;
+    }
+
     public function getMultipassIdentifier()
     {
         return $this->getRawData()->multipass_identifier;
