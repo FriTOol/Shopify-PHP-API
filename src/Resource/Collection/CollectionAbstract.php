@@ -17,7 +17,7 @@ abstract class CollectionAbstract implements \IteratorAggregate, \Countable, \Ar
     /**
      * @var array
      */
-    protected $_collection;
+    protected $_collection = [];
 
     abstract protected function _convertData();
 
