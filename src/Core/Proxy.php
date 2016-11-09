@@ -79,8 +79,8 @@ class Proxy
 
     public function updateCustomerAddress(int $customerId, int $addressId, $data)
     {
-        return $this->_postApi(
-            sprintf('customers/dD/addresses/%d.json', $customerId, $addressId),
+        return $this->_putApi(
+            sprintf('customers/%d/addresses/%d.json', $customerId, $addressId),
             ['address' => $data]
         );
     }
