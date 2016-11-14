@@ -243,6 +243,13 @@ class Customer extends ResourceAbstract
         return $this;
     }
 
+    public function setSendEmailInvite(bool $sendEmailInvite): Customer
+    {
+        $this->_updatedData['send_email_invite'] = $sendEmailInvite;
+
+        return $this;
+    }
+
     public function save()
     {
         if ($this->getRawData() && $this->getId()) {
