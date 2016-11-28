@@ -140,6 +140,11 @@ class Customer extends ResourceAbstract
         return $this->getRawData()->tax_exempt;
     }
 
+    public function hasTag(string $tag): bool
+    {
+        return in_array($tag, $this->getTags());
+    }
+
     public function getTags(): array
     {
         $tags = [];
