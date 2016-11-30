@@ -46,4 +46,14 @@ abstract class ResourceAbstract
     {
         $this->_updatedData = [];
     }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return new \DateTime($this->getRawData()->created_at);
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return new \DateTime($this->getRawData()->updated_at);
+    }
 }

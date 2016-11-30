@@ -10,7 +10,9 @@ namespace ShopifyApi;
 
 use ShopifyApi\Core\Proxy;
 use ShopifyApi\Resource\Collection\CustomerCollection;
+use ShopifyApi\Resource\Collection\ProductCollection;
 use ShopifyApi\Resource\Customer;
+use ShopifyApi\Resource\Product;
 
 class ShopifyApi
 {
@@ -26,8 +28,12 @@ class ShopifyApi
         ]
     ];
 
-    public function __construct(string $apiKey, string $apiSecret, string $storeUrl, array $configs = [])
-    {
+    public function __construct(
+        string $apiKey,
+        string $apiSecret,
+        string $storeUrl,
+        array $configs = []
+    ) {
         $configs = array_merge($this->_defaultConfigs, $configs);
         $this->_proxy = new Proxy($apiKey, $apiSecret, $storeUrl, $configs);
     }
@@ -39,7 +45,10 @@ class ShopifyApi
 
     public function getCustomers(array $params = [])
     {
-        return new CustomerCollection($this->getProxy()->getCustomers($params)->customers, $this->getProxy());
+        return new CustomerCollection(
+            $this->getProxy()->getCustomers($params)->customers,
+            $this->getProxy()
+        );
     }
 
     public function getCustomer(int $id): Customer
@@ -59,5 +68,21 @@ class ShopifyApi
         ];
 
         return new CustomerCollection($this->getProxy()->findCustomers($params)->customers, $this->getProxy());
+    }
+
+    public function getProducts(array $params = []): ProductCollection
+    {
+        return new ProductCollection(
+            $this->getProxy()->getProducts($params)->products,
+            $this->getProxy()
+        );
+    }
+
+    public function getProduct(int $productId): Product
+    {
+        return new Product(
+            $this->getProxy()->getProduct($productId)->product,
+            $this->getProxy()
+        );
     }
 }

@@ -85,6 +85,52 @@ class Proxy
         );
     }
 
+    public function getProducts(array $params = [])
+    {
+        return $this->_getApi('products.json', $params);
+    }
+
+    public function getProduct(int $productId)
+    {
+        return $this->_getApi(sprintf(
+            'products/%d.json',
+            $productId
+        ));
+    }
+
+    public function getProductMetafields(int $productId)
+    {
+        return $this->_getApi(sprintf('products/%d/metafields.json', $productId));
+    }
+
+    public function removeProductMetafield(int $productId, int $metafieldId)
+    {
+        return $this->_delApi(sprintf(
+            'products/%d/metafields/%d.json',
+            $productId,
+            $metafieldId
+        ));
+    }
+
+    public function addProductMetafield(int $productId, array $data)
+    {
+        return $this->_postApi(
+            sprintf('products/%d/metafields.json', $productId),
+            ['metafield' => $data]
+        );
+    }
+
+    public function saveProductMetafield(
+        int $productId,
+        int $metafieldId,
+        array $data
+    ) {
+        return $this->_putApi(
+            sprintf('products/%d/metafields/%d.json', $productId, $metafieldId),
+            ['metafield' => $data]
+        );
+    }
+
     private function _getApi(string $url, array $query = [])
     {
         return $this->_callApi('get', $url, ['query' => $query]);
@@ -98,6 +144,11 @@ class Proxy
     private function _postApi(string $url, array $formParams = [])
     {
         return $this->_callApi('post', $url, ['form_params' => $formParams]);
+    }
+
+    private function _delApi(string $url, array $formParams = [])
+    {
+        return $this->_callApi('delete', $url, ['form_params' => $formParams]);
     }
 
     private function _callApi(string $method, string $url, array $options = [])

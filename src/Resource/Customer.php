@@ -13,6 +13,8 @@ use ShopifyApi\Resource\Customer\Address;
 
 class Customer extends ResourceAbstract
 {
+    use TagResourceTrait;
+
     /**
      * @var AddressCollection
      */
@@ -62,16 +64,6 @@ class Customer extends ResourceAbstract
         $this->_updatedData['accepts_marketing'] = $isAccepts;
 
         return $this;
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return new \DateTime($this->getRawData()->created_at);
-    }
-
-    public function getUpdatedAt(): \DateTime
-    {
-        return new \DateTime($this->getRawData()->updated_at);
     }
 
     public function getFirstName(): string
@@ -138,50 +130,6 @@ class Customer extends ResourceAbstract
     public function isTaxExempt(): bool
     {
         return $this->getRawData()->tax_exempt;
-    }
-
-    public function hasTag(string $tag): bool
-    {
-        return in_array($tag, $this->getTags());
-    }
-
-    public function getTags(): array
-    {
-        $tags = [];
-        $strTags = $this->_getData('tags');
-        if (trim($strTags) != '') {
-            $tags = explode(',', $strTags);
-            $tags = array_map(function ($tag) { return trim($tag); }, $tags);
-        }
-
-        return $tags;
-    }
-
-    public function setTags(array $tags): Customer
-    {
-        $this->_updatedData['tags'] = implode(', ', $tags);
-
-        return $this;
-    }
-
-    public function addTag(string $tag): Customer
-    {
-        $tags = $this->getTags();
-        $tags[] = $tag;
-        $this->setTags($tags);
-
-        return $this;
-    }
-
-    public function removeTag(string $removeTag): Customer
-    {
-        $removeTag = strtolower($removeTag);
-        $tags = array_filter($this->getTags(), function (string $tag) use ($removeTag) {
-            return strtolower($tag) != $removeTag;
-        });
-        $this->setTags($tags);
-
-        return $this;
     }
 
     public function setSendEmailWelcome(bool $isSend): Customer
@@ -269,7 +217,6 @@ class Customer extends ResourceAbstract
                     $this->_updatedData
                 );
             }
-
         } else {
             $addressData = $this->getAddresses()->getUpdatedData();
             $data = $this->_updatedData;
