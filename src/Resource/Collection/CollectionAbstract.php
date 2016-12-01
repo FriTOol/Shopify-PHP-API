@@ -72,4 +72,14 @@ abstract class CollectionAbstract implements \IteratorAggregate, \Countable, \Ar
         return $data;
     }
 
+    public function exists(\Closure $p)
+    {
+        foreach ($this->_collection as $key => $element) {
+            if ($p($key, $element)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
