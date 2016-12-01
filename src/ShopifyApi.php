@@ -96,7 +96,7 @@ class ShopifyApi
 
     public function verifyWebhook(RequestInterface $request): bool
     {
-        if (!$request->hasHeader('HTTP_X_SHOPIFY_HMAC_SHA256')) {
+        if (!$request->hasHeader('x-shopify-hmac-sha256')) {
             return false;
         }
 
@@ -107,6 +107,6 @@ class ShopifyApi
             true
         ));
 
-        return ($request->getHeader('HTTP_X_SHOPIFY_HMAC_SHA256') == $calculatedHmac);
+        return ($request->getHeaderLine('x-shopify-hmac-sha256') == $calculatedHmac);
     }
 }
