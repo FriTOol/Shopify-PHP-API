@@ -8,6 +8,7 @@
 
 namespace ShopifyApi;
 
+use Psr\Http\Message\RequestInterface;
 use ShopifyApi\Core\Proxy;
 use ShopifyApi\Resource\Collection\CustomerCollection;
 use ShopifyApi\Resource\Collection\ProductCollection;
@@ -28,14 +29,21 @@ class ShopifyApi
         ]
     ];
 
+    /**
+     * @var string
+     */
+    private $_webhookSecret;
+
     public function __construct(
         string $apiKey,
         string $apiSecret,
         string $storeUrl,
+        string $webhookSecret = '',
         array $configs = []
     ) {
         $configs = array_merge($this->_defaultConfigs, $configs);
         $this->_proxy = new Proxy($apiKey, $apiSecret, $storeUrl, $configs);
+        $this->_webhookSecret = $webhookSecret;
     }
 
     public function getProxy(): Proxy
@@ -84,5 +92,21 @@ class ShopifyApi
             $this->getProxy()->getProduct($productId)->product,
             $this->getProxy()
         );
+    }
+
+    public function verifyWebhook(RequestInterface $request): bool
+    {
+        if (!$request->hasHeader('HTTP_X_SHOPIFY_HMAC_SHA256')) {
+            return false;
+        }
+
+        $calculatedHmac = base64_encode(hash_hmac(
+            'sha256',
+            $request->getBody()->getContents(),
+            $this->_webhookSecret,
+            true
+        ));
+
+        return ($request->getHeader('HTTP_X_SHOPIFY_HMAC_SHA256') == $calculatedHmac);
     }
 }
