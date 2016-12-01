@@ -100,6 +100,8 @@ class Product extends ResourceAbstract
                 $metafield->getId()
             );
         }
+
+        return $this;
     }
 
     public function save()
