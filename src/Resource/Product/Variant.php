@@ -41,4 +41,15 @@ class Variant extends ResourceAbstract
     {
         return intval($this->_getData('grams'));
     }
+
+    public function getImage(): Image
+    {
+        return new Image(
+            $this->getProxy()->getProductImage(
+                $this->_getData('product_id'),
+                $this->_getData('image_id')
+            )->image,
+            $this->getProxy()
+        );
+    }
 }

@@ -131,6 +131,20 @@ class Proxy
         );
     }
 
+    public function getProductImages(int $productId)
+    {
+        return $this->_getApi(sprintf('products/%d/images.json', $productId));
+    }
+
+    public function getProductImage(int $productId, int $imagesId)
+    {
+        return $this->_getApi(sprintf(
+            'products/%d/images/%s.json',
+            $productId,
+            $imagesId
+        ));
+    }
+
     private function _getApi(string $url, array $query = [])
     {
         return $this->_callApi('get', $url, ['query' => $query]);

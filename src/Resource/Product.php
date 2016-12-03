@@ -8,6 +8,7 @@
 
 namespace ShopifyApi\Resource;
 
+use ShopifyApi\Resource\Collection\Product\ImageCollection;
 use ShopifyApi\Resource\Collection\Product\MetafieldsCollection;
 use ShopifyApi\Resource\Collection\Product\VariantCollection;
 use ShopifyApi\Resource\Product\Metafield;
@@ -20,6 +21,11 @@ class Product extends ResourceAbstract
      * @var MetafieldsCollection
      */
     private $_metafields;
+
+    /**
+     * @var ImageCollection
+     */
+    private $_images;
 
     public function getId(): int
     {
@@ -102,6 +108,18 @@ class Product extends ResourceAbstract
         }
 
         return $this;
+    }
+
+    public function getImages(): ImageCollection
+    {
+        if (is_null($this->_images)) {
+            $this->_images = new ImageCollection(
+                $this->getProxy()->getProductImages($this->getId())->images,
+                $this->getProxy()
+            );
+        }
+
+        return $this->_images;
     }
 
     public function save()
