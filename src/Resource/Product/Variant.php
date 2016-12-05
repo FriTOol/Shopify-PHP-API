@@ -52,4 +52,9 @@ class Variant extends ResourceAbstract
             $this->getProxy()
         );
     }
+
+    public function hasImage()
+    {
+        return !is_null($this->_getData('image_id'));
+    }
 }
