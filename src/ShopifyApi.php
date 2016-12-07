@@ -10,6 +10,7 @@ namespace ShopifyApi;
 
 use Psr\Http\Message\RequestInterface;
 use ShopifyApi\Core\Proxy;
+use ShopifyApi\Resource\Cart;
 use ShopifyApi\Resource\Collection\CustomerCollection;
 use ShopifyApi\Resource\Collection\ProductCollection;
 use ShopifyApi\Resource\Customer;
@@ -108,5 +109,14 @@ class ShopifyApi
         ));
 
         return ($request->getHeaderLine('x-shopify-hmac-sha256') == $calculatedHmac);
+    }
+
+    public function getCartByToken(string $token): Cart
+    {
+        var_dump($this->getProxy()->getCartByToken($token));
+        return new Cart(
+            $this->getProxy()->getCartByToken($token)->cart,
+            $this->getProxy()
+        );
     }
 }

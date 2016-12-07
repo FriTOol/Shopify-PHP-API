@@ -145,6 +145,11 @@ class Proxy
         ));
     }
 
+    public function getCartByToken(string $token)
+    {
+        return $this->_getApi(sprintf('carts/%s.json', $token));
+    }
+
     private function _getApi(string $url, array $query = [])
     {
         return $this->_callApi('get', $url, ['query' => $query]);
