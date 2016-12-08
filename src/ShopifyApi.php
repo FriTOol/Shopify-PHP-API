@@ -113,7 +113,6 @@ class ShopifyApi
 
     public function getCartByToken(string $token): Cart
     {
-        var_dump($this->getProxy()->getCartByToken($token));
         return new Cart(
             $this->getProxy()->getCartByToken($token)->cart,
             $this->getProxy()
