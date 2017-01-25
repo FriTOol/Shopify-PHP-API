@@ -19,35 +19,35 @@ class Variant extends ResourceAbstract
 
     public function getTitle(): string
     {
-        return strval($this->_getData('title'));
+        return strval($this->getData('title'));
     }
 
     public function getPrice(): float
     {
-        return floatval($this->_getData('price'));
+        return floatval($this->getData('price'));
     }
 
     public function getSku(): string
     {
-        return strval($this->_getData('sku'));
+        return strval($this->getData('sku'));
     }
 
     public function getPosition(): int
     {
-        return intval($this->_getData('position'));
+        return intval($this->getData('position'));
     }
 
     public function getGrams(): int
     {
-        return intval($this->_getData('grams'));
+        return intval($this->getData('grams'));
     }
 
     public function getImage(): Image
     {
         return new Image(
             $this->getProxy()->getProductImage(
-                $this->_getData('product_id'),
-                $this->_getData('image_id')
+                $this->getData('product_id'),
+                $this->getData('image_id')
             )->image,
             $this->getProxy()
         );
@@ -55,6 +55,6 @@ class Variant extends ResourceAbstract
 
     public function hasImage()
     {
-        return !is_null($this->_getData('image_id'));
+        return !is_null($this->getData('image_id'));
     }
 }

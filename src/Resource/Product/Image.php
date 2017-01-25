@@ -19,6 +19,6 @@ class Image extends ResourceAbstract
 
     public function getSrc(): string
     {
-        return strval($this->_getData('src'));
+        return strval($this->getData('src'));
     }
 }

@@ -34,47 +34,47 @@ class Product extends ResourceAbstract
 
     public function getTitle(): string
     {
-        return strval($this->_getData('title'));
+        return strval($this->getData('title'));
     }
 
     public function getBodyHtml(): string
     {
-        return strval($this->_getData('body_html'));
+        return strval($this->getData('body_html'));
     }
 
     public function getVendor(): string
     {
-        return strval($this->_getData('vendor'));
+        return strval($this->getData('vendor'));
     }
 
     public function getProductType(): string
     {
-        return strval($this->_getData('product_type'));
+        return strval($this->getData('product_type'));
     }
 
     public function getHandle(): string
     {
-        return strval($this->_getData('handle'));
+        return strval($this->getData('handle'));
     }
 
     public function getPublishedAt(): \DateTime
     {
-        return new \DateTime($this->_getData('published_at'));
+        return new \DateTime($this->getData('published_at'));
     }
 
     public function getTemplateSuffix()
     {
-        return $this->_getData('template_suffix');
+        return $this->getData('template_suffix');
     }
 
     public function getPublishedScope()
     {
-        return strval($this->_getData('published_scope'));
+        return strval($this->getData('published_scope'));
     }
 
     public function getVariants(): VariantCollection
     {
-        return new VariantCollection($this->_getData('variants'), $this->getProxy());
+        return new VariantCollection($this->getData('variants'), $this->getProxy());
     }
 
     public function getMetafields(): MetafieldsCollection

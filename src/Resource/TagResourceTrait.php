@@ -18,7 +18,7 @@ trait TagResourceTrait
     public function getTags(): array
     {
         $tags = [];
-        $strTags = $this->_getData('tags');
+        $strTags = $this->getData('tags');
         if (trim($strTags) != '') {
             $tags = explode(',', $strTags);
             $tags = array_map(function ($tag) { return trim($tag); }, $tags);

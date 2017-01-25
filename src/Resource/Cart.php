@@ -8,6 +8,7 @@
 
 namespace ShopifyApi\Resource;
 
+use ShopifyApi\Resource\Cart\LineItem;
 use ShopifyApi\Resource\Collection\Cart\LineItemCollection;
 
 class Cart extends ResourceAbstract
@@ -33,5 +34,27 @@ class Cart extends ResourceAbstract
             $this->getRawData()->line_items,
             $this->getProxy()
         );
+    }
+
+    public function getPrice(): float
+    {
+        $price = 0.0;
+        /** @var LineItem $lineItem */
+        foreach ($this->getLineItems() as $lineItem) {
+            $price += $lineItem->getDiscountedPrice();
+        }
+
+        return floatval($price);
+    }
+
+    public function getWeight(): int
+    {
+        $weight = 0.0;
+        /** @var LineItem $lineItem */
+        foreach ($this->getLineItems() as $lineItem) {
+            $weight += $lineItem->getGrams();
+        }
+
+        return intval($weight);
     }
 }

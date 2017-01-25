@@ -8,6 +8,7 @@
 
 namespace ShopifyApi\Resource;
 
+use ShopifyApi\Core\Proxy;
 use ShopifyApi\Resource\Collection\Customer\AddressCollection;
 use ShopifyApi\Resource\Customer\Address;
 
@@ -32,7 +33,7 @@ class Customer extends ResourceAbstract
 
     public function getEmail(): string
     {
-        return strval($this->_getData('email'));
+        return strval($this->getData('email'));
     }
 
     public function setEmail(string $email): Customer
@@ -44,7 +45,7 @@ class Customer extends ResourceAbstract
 
     public function isVerifiedEmail(): bool
     {
-        return $this->_getData('verified_email');
+        return $this->getData('verified_email');
     }
 
     public function setIsVerifiedEmail(bool $isVerified): Customer
@@ -56,7 +57,7 @@ class Customer extends ResourceAbstract
 
     public function isAcceptsMarketing(): bool
     {
-        return $this->_getData('accepts_marketing');
+        return $this->getData('accepts_marketing');
     }
 
     public function setIsAcceptsMarketing(bool $isAccepts): Customer
@@ -68,7 +69,7 @@ class Customer extends ResourceAbstract
 
     public function getFirstName(): string
     {
-        return strval($this->_getData('first_name'));
+        return strval($this->getData('first_name'));
     }
 
     public function setFirstName(string $firstName): Customer
@@ -80,7 +81,7 @@ class Customer extends ResourceAbstract
 
     public function getLastName(): string
     {
-        return strval($this->_getData('last_name'));
+        return strval($this->getData('last_name'));
     }
 
     public function setLastName(string $lastName): Customer
@@ -112,7 +113,7 @@ class Customer extends ResourceAbstract
 
     public function getNote(): string
     {
-        return strval($this->_getData('note'));
+        return strval($this->getData('note'));
     }
 
     public function setNote(string $note): Customer
@@ -230,5 +231,20 @@ class Customer extends ResourceAbstract
         $this->resetUpdatedData();
 
         return true;
+    }
+
+    public static function create(array $data)
+    {
+        return Proxy::getInstance()->createCustomer($data);
+    }
+
+    public static function update(int $id, array $data)
+    {
+        return Proxy::getInstance()->updateCustomer($id, $data);
+    }
+
+    public static function delete(int $id)
+    {
+        return Proxy::getInstance()->deleteCustomer($id);
     }
 }

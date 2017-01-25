@@ -39,11 +39,12 @@ class ShopifyApi
         string $apiKey,
         string $apiSecret,
         string $storeUrl,
+        string $domain,
         string $webhookSecret = '',
         array $configs = []
     ) {
         $configs = array_merge($this->_defaultConfigs, $configs);
-        $this->_proxy = new Proxy($apiKey, $apiSecret, $storeUrl, $configs);
+        $this->_proxy = new Proxy($apiKey, $apiSecret, $storeUrl, $domain, $configs);
         $this->_webhookSecret = $webhookSecret;
     }
 
@@ -117,5 +118,15 @@ class ShopifyApi
             $this->getProxy()->getCartByToken($token)->cart,
             $this->getProxy()
         );
+    }
+
+    public function createOrder(array $data)
+    {
+        return $this->getProxy()->createOrder($data);
+    }
+
+    public function getShippingZones()
+    {
+        return $this->getProxy()->getShippingZones()->shipping_zones;
     }
 }

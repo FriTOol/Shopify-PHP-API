@@ -25,12 +25,12 @@ class Address extends ResourceAbstract
 
     public function getId(): int
     {
-        return intval($this->_getData('id'));
+        return intval($this->getData('id'));
     }
 
     public function getFirstName(): string
     {
-        return strval($this->_getData('first_name'));
+        return strval($this->getData('first_name'));
     }
 
     public function setFirstName(string $firstName): Address
@@ -42,7 +42,7 @@ class Address extends ResourceAbstract
 
     public function getLastName(): string
     {
-        return strval($this->_getData('last_name'));
+        return strval($this->getData('last_name'));
     }
 
     public function setLastName(string $lastName): Address
@@ -54,7 +54,7 @@ class Address extends ResourceAbstract
 
     public function getCompany(): string
     {
-        return strval($this->_getData('company'));
+        return strval($this->getData('company'));
     }
 
 
@@ -67,7 +67,7 @@ class Address extends ResourceAbstract
 
     public function getAddress1(): string
     {
-        return strval($this->_getData('address1'));
+        return strval($this->getData('address1'));
     }
 
     public function setAddress1(string $address1): Address
@@ -79,7 +79,7 @@ class Address extends ResourceAbstract
 
     public function getAddress2(): string
     {
-        return strval($this->_getData('address2'));
+        return strval($this->getData('address2'));
     }
 
     public function setAddress2(string $address2): Address
@@ -91,7 +91,7 @@ class Address extends ResourceAbstract
 
     public function getCity(): string
     {
-        return strval($this->_getData('city'));
+        return strval($this->getData('city'));
     }
 
     public function setCity(string $city): Address
@@ -103,7 +103,7 @@ class Address extends ResourceAbstract
 
     public function getProvince(): string
     {
-        return strval($this->_getData('province'));
+        return strval($this->getData('province'));
     }
 
     public function setProvince(string $province): Address
@@ -115,7 +115,7 @@ class Address extends ResourceAbstract
 
     public function getCountry(): string
     {
-        return strval($this->_getData('country'));
+        return strval($this->getData('country'));
     }
 
     public function setCountry(string $country): Address
@@ -127,7 +127,7 @@ class Address extends ResourceAbstract
 
     public function getZip(): string
     {
-        return strval($this->_getData('zip'));
+        return strval($this->getData('zip'));
     }
 
     public function setZip(string $zip): Address
@@ -139,7 +139,7 @@ class Address extends ResourceAbstract
 
     public function getPhone(): string
     {
-        return strval($this->_getData('phone'));
+        return strval($this->getData('phone'));
     }
 
     public function setPhone(string $phone): Address
@@ -151,7 +151,7 @@ class Address extends ResourceAbstract
 
     public function getName(): string
     {
-        return strval($this->_getData('name'));
+        return strval($this->getData('name'));
     }
 
     public function setName(string $name): Address
@@ -163,7 +163,7 @@ class Address extends ResourceAbstract
 
     public function getProvinceCode(): string
     {
-        return strval($this->_getData('province_code'));
+        return strval($this->getData('province_code'));
     }
 
     public function setProvinceCode(string $provinceCode): Address
@@ -175,7 +175,7 @@ class Address extends ResourceAbstract
 
     public function getCountryCode(): string
     {
-        return strval($this->_getData('country_code'));
+        return strval($this->getData('country_code'));
     }
 
     public function setCountryCode(string $countryCode): Address
@@ -187,7 +187,7 @@ class Address extends ResourceAbstract
 
     public function isDefault(): bool
     {
-        return boolval($this->_getData('default'));
+        return boolval($this->getData('default'));
     }
 
     public function setDefault(): Address

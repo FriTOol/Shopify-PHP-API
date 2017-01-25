@@ -17,7 +17,7 @@ class Metafield extends ResourceAbstract
 
     public function getNamespace(): string
     {
-        return strval($this->_getData('namespace'));
+        return strval($this->getData('namespace'));
     }
 
     public function setNamespace(string $namespace): Metafield
@@ -29,7 +29,7 @@ class Metafield extends ResourceAbstract
 
     public function getKey(): string
     {
-        return strval($this->_getData('key'));
+        return strval($this->getData('key'));
     }
 
     public function setKey(string $key): Metafield
@@ -41,7 +41,7 @@ class Metafield extends ResourceAbstract
 
     public function getValue()
     {
-        return $this->_getData('value');
+        return $this->getData('value');
     }
 
     public function setValue($value): Metafield
@@ -53,7 +53,7 @@ class Metafield extends ResourceAbstract
 
     public function getValueType(): string
     {
-        return strval($this->_getData('value_type'));
+        return strval($this->getData('value_type'));
     }
 
     public function setValueType(string $valueType): Metafield
@@ -65,16 +65,16 @@ class Metafield extends ResourceAbstract
 
     public function getDescription(): string
     {
-        return strval($this->_getData('description'));
+        return strval($this->getData('description'));
     }
 
     public function getOwnerId(): int
     {
-        return intval($this->_getData('owner_id'));
+        return intval($this->getData('owner_id'));
     }
 
     public function getOwnerResource(): string
     {
-        return strval($this->_getData('owner_resource'));
+        return strval($this->getData('owner_resource'));
     }
 }

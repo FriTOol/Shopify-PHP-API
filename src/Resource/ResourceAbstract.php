@@ -19,22 +19,24 @@ abstract class ResourceAbstract
 
     protected $_updatedData = [];
 
-    public function __construct($rawData, Proxy $proxy, bool $isLoaded = false)
-    {
+//    public static abstract function create(array $data);
+//
+//    public static abstract function update(int $id, array $data);
+//
+//    public static abstract function delete(int $id);
+
+
+    public function __construct(
+        $rawData,
+        Proxy $proxy = null,
+        bool $isLoaded = false
+    ) {
         $this->setRawData($rawData);
+        if (is_null($proxy)) {
+            $proxy = Proxy::getInstance();
+        }
         $this->setProxy($proxy);
         $this->_isLoaded = $isLoaded;
-    }
-
-    protected function _getData(string $name)
-    {
-        if (isset($this->_updatedData[$name])) {
-            return $this->_updatedData[$name];
-        } elseif (isset($this->getRawData()->$name)) {
-            return $this->getRawData()->$name;
-        }
-
-        return null;
     }
 
     public function getUpdatedData()
@@ -55,5 +57,16 @@ abstract class ResourceAbstract
     public function getUpdatedAt(): \DateTime
     {
         return new \DateTime($this->getRawData()->updated_at);
+    }
+
+    protected function getData(string $name)
+    {
+        if (isset($this->_updatedData[$name])) {
+            return $this->_updatedData[$name];
+        } elseif (isset($this->getRawData()->$name)) {
+            return $this->getRawData()->$name;
+        }
+
+        return null;
     }
 }
