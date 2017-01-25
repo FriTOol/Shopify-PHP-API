@@ -129,4 +129,5 @@ class ShopifyApi
     {
         return $this->getProxy()->getShippingZones()->shipping_zones;
     }
+
 }
