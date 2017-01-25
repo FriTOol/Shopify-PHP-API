@@ -130,4 +130,10 @@ class ShopifyApi
         return $this->getProxy()->getShippingZones()->shipping_zones;
     }
 
+    public function getShippingRates(string $cartToken, array $address)
+    {
+        $result = $this->getProxy()->getShippingRates($cartToken, $address);
+
+        return $result->shipping_rates ?? [];
+    }
 }
