@@ -257,4 +257,9 @@ class Proxy
     {
         return $this->getApi('/admin/shipping_zones.json');
     }
+
+    public function getCountries()
+    {
+        return $this->getApi('/admin/countries.json');
+    }
 }
