@@ -262,4 +262,9 @@ class Proxy
     {
         return $this->getApi('/admin/countries.json');
     }
+
+    public function getCollect(array $params)
+    {
+        return $this->getApi('/admin/collects.json', $params);
+    }
 }

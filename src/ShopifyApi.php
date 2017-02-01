@@ -136,4 +136,13 @@ class ShopifyApi
 
         return $result->shipping_rates ?? [];
     }
+
+    public function getCollect(int $id, array $params = []): array
+    {
+        $params['collection_id'] = $id;
+        $result = $this->getProxy()->getCollect($params);
+
+        return $result->collects ?? [];
+
+    }
 }
