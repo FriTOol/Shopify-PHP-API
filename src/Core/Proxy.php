@@ -101,6 +101,17 @@ class Proxy
         return $this->getApi('customers.json', $params);
     }
 
+    public function getCustomersBySavedSearch(int $id, array $params = [])
+    {
+        return $this->getApi(
+            sprintf(
+                '/admin/customer_saved_searches/%d/customers.json',
+                $id
+                ),
+            $params
+        );
+    }
+
     public function getCustomer(int $id)
     {
         return $this->getApi(sprintf('customers/%d.json', $id));
@@ -253,6 +264,11 @@ class Proxy
         return $this->postApi('/admin/orders.json', ['order' => $order]);
     }
 
+    public function getOrders(array $params = [])
+    {
+        return $this->getApi('/admin/orders.json', $params);
+    }
+
     public function getShippingZones()
     {
         return $this->getApi('/admin/shipping_zones.json');
@@ -266,5 +282,10 @@ class Proxy
     public function getCollect(array $params)
     {
         return $this->getApi('/admin/collects.json', $params);
+    }
+
+    public function getDiscounts(array $params)
+    {
+        return $this->getApi('/admin/discounts.json', $params);
     }
 }

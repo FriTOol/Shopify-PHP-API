@@ -61,6 +61,14 @@ class ShopifyApi
         );
     }
 
+    public function getCustomersBySavedSearch(int $id, array $params = [])
+    {
+        return new CustomerCollection(
+            $this->getProxy()->getCustomersBySavedSearch($id, $params)->customers,
+            $this->getProxy()
+        );
+    }
+
     public function getCustomer(int $id): Customer
     {
         return new Customer($this->getProxy()->getCustomer($id)->customer, $this->getProxy());
@@ -125,6 +133,13 @@ class ShopifyApi
         return $this->getProxy()->createOrder($data);
     }
 
+    public function getOrders(array $params = []): array
+    {
+        $result = $this->getProxy()->getOrders($params);
+
+        return $result->orders ?? [];
+    }
+
     public function getShippingZones()
     {
         return $this->getProxy()->getShippingZones()->shipping_zones;
@@ -143,6 +158,12 @@ class ShopifyApi
         $result = $this->getProxy()->getCollect($params);
 
         return $result->collects ?? [];
+    }
 
+    public function getDiscounts(array $params = []): array
+    {
+        $result = $this->getProxy()->getDiscounts($params);
+
+        return $result->discounts ?? [];
     }
 }
