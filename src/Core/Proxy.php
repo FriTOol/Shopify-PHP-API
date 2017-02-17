@@ -170,6 +170,14 @@ class Proxy
         );
     }
 
+    public function createCustomerMetafield(int $customerId, array $data)
+    {
+        return $this->postApi(
+            sprintf('customers/%d/metafields.json', $customerId),
+            ['metafield' => $data]
+        );
+    }
+
     public function getProducts(array $params = [])
     {
         return $this->getApi('products.json', $params);
