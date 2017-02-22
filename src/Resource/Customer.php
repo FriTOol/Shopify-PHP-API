@@ -148,6 +148,18 @@ class Customer extends ResourceAbstract
         return $this;
     }
 
+    public function getPhone(): string
+    {
+        return strval($this->getData('phone'));
+    }
+
+    public function setPhone(string $phone): Customer
+    {
+        $this->_updatedData['phone'] = $phone;
+
+        return $this;
+    }
+
     public function getAddresses(): AddressCollection
     {
         if (is_null($this->_addresses)) {
