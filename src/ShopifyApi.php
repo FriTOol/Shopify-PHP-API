@@ -133,6 +133,11 @@ class ShopifyApi
         return $this->getProxy()->createOrder($data);
     }
 
+    public function createDraftOrder(array $data)
+    {
+        return $this->getProxy()->createDraftOrder($data);
+    }
+
     public function getOrders(array $params = []): array
     {
         $result = $this->getProxy()->getOrders($params);

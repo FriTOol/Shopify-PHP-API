@@ -90,7 +90,6 @@ class Proxy
         return $this->callApi('post', $url, ['json' => $formParams]);
     }
 
-
     public function delApi(string $url, array $formParams = [])
     {
         return $this->callApi('delete', $url, ['form_params' => $formParams]);
@@ -270,6 +269,11 @@ class Proxy
     public function createOrder($order)
     {
         return $this->postApi('/admin/orders.json', ['order' => $order]);
+    }
+
+    public function createDraftOrder(array $draftOrder)
+    {
+        return $this->postApi('/admin/draft_orders.json', ['draft_order' => $draftOrder]);
     }
 
     public function getOrders(array $params = [])

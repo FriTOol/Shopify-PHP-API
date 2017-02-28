@@ -57,9 +57,14 @@ class Product extends ResourceAbstract
         return strval($this->getData('handle'));
     }
 
-    public function getPublishedAt(): \DateTime
+    public function getPublishedAt(): ?\DateTime
     {
-        return new \DateTime($this->getData('published_at'));
+        $publishedAt = $this->getData('published_at');
+        if (is_null($publishedAt)) {
+            return null;
+        }
+
+        return new \DateTime($publishedAt);
     }
 
     public function getTemplateSuffix()
