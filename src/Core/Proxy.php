@@ -276,6 +276,14 @@ class Proxy
         return $this->postApi('/admin/draft_orders.json', ['draft_order' => $draftOrder]);
     }
 
+    public function draftOrderSendInvoice(int $draftOrderId, array $data = [])
+    {
+        return $this->postApi(
+            sprintf('/admin/draft_orders/%d/send_invoice.json', $draftOrderId),
+                ['draft_order_invoice' => $data]
+        );
+    }
+
     public function getOrders(array $params = [])
     {
         return $this->getApi('/admin/orders.json', $params);

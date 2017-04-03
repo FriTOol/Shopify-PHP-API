@@ -135,7 +135,12 @@ class ShopifyApi
 
     public function createDraftOrder(array $data)
     {
-        return $this->getProxy()->createDraftOrder($data);
+        return $this->getProxy()->createDraftOrder($data)->draft_order;
+    }
+
+    public function draftOrderSendInvoice(int $draftOrderId, array $data = [])
+    {
+        return $this->getProxy()->draftOrderSendInvoice($draftOrderId, $data);
     }
 
     public function getOrders(array $params = []): array
