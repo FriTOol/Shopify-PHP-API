@@ -304,8 +304,16 @@ class Proxy
         return $this->getApi('/admin/collects.json', $params);
     }
 
-    public function getDiscounts(array $params)
+    public function getPriceRules(array $params)
     {
-        return $this->getApi('/admin/discounts.json', $params);
+        return $this->getApi('/admin/price_rules.json', $params);
+    }
+
+    public function getDiscountCodes(int $priceRuleId, array $params)
+    {
+        return $this->getApi(
+            sprintf('/admin/price_rules/%d/discount_codes.json', $priceRuleId),
+                $params
+        );
     }
 }

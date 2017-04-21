@@ -170,10 +170,17 @@ class ShopifyApi
         return $result->collects ?? [];
     }
 
-    public function getDiscounts(array $params = []): array
+    public function getDiscountCodes(int $priceRuleId, array $params = []): array
     {
-        $result = $this->getProxy()->getDiscounts($params);
+        $result = $this->getProxy()->getDiscountCodes($priceRuleId, $params);
 
-        return $result->discounts ?? [];
+        return $result->discount_codes ?? [];
+    }
+
+    public function getPriceRules(array $params = []): array
+    {
+        $result = $this->getProxy()->getPriceRules($params);
+
+        return $result->price_rules ?? [];
     }
 }
