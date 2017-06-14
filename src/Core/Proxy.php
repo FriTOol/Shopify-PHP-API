@@ -316,4 +316,12 @@ class Proxy
                 $params
         );
     }
+
+    public function getCustomCollections(array $params)
+    {
+        return $this->getApi(
+            '/admin/custom_collections.json',
+            $params
+        );
+    }
 }

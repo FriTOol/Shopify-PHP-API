@@ -183,4 +183,11 @@ class ShopifyApi
 
         return $result->price_rules ?? [];
     }
+
+    public function getCustomCollections(array $params = []): array
+    {
+        $result = $this->getProxy()->getCustomCollections($params);
+
+        return $result->custom_collections ?? [];
+    }
 }
