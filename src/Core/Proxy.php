@@ -342,7 +342,6 @@ class Proxy
 
     public function createTransaction(int $orderId, array $data)
     {
-        var_dump(sprintf('/admin/orders/%d/transactions.json', $orderId));
         return $this->postApi(
             sprintf('/admin/orders/%d/transactions.json', $orderId),
             ['transaction' => $data]
