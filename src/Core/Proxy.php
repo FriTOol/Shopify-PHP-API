@@ -271,6 +271,14 @@ class Proxy
         return $this->postApi('/admin/orders.json', ['order' => $order]);
     }
 
+    public function updateOrder(int $id, array $data)
+    {
+        return $this->putApi(
+            sprintf('/admin/orders/%d.json', $id),
+            ['order' => $data]
+        );
+    }
+
     public function createDraftOrder(array $draftOrder)
     {
         return $this->postApi('/admin/draft_orders.json', ['draft_order' => $draftOrder]);
@@ -322,6 +330,22 @@ class Proxy
         return $this->getApi(
             '/admin/custom_collections.json',
             $params
+        );
+    }
+
+    public function getTransactions(int $orderId)
+    {
+        return $this->getApi(
+            sprintf('/admin/orders/%d/transactions.json', $orderId)
+        );
+    }
+
+    public function createTransaction(int $orderId, array $data)
+    {
+        var_dump(sprintf('/admin/orders/%d/transactions.json', $orderId));
+        return $this->postApi(
+            sprintf('/admin/orders/%d/transactions.json', $orderId),
+            ['transaction' => $data]
         );
     }
 }

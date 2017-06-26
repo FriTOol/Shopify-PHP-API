@@ -133,6 +133,11 @@ class ShopifyApi
         return $this->getProxy()->createOrder($data);
     }
 
+    public function updateOrder(int $id, array $data)
+    {
+        return $this->getProxy()->updateOrder($id, $data);
+    }
+
     public function createDraftOrder(array $data)
     {
         return $this->getProxy()->createDraftOrder($data)->draft_order;
@@ -189,5 +194,17 @@ class ShopifyApi
         $result = $this->getProxy()->getCustomCollections($params);
 
         return $result->custom_collections ?? [];
+    }
+
+    public function getTransactions(int $orderId): array
+    {
+        $result = $this->getProxy()->getTransactions($orderId);
+
+        return $result->transactions ?? [];
+    }
+
+    public function createTransaction(int $orderId, array $data)
+    {
+        return $this->getProxy()->createTransaction($orderId, $data);
     }
 }
